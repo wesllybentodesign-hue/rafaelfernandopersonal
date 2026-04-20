@@ -94,7 +94,7 @@ body::before {
 }
 
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; line-height: 0.95; text-transform: uppercase; }
-.h1 { font-size: clamp(3rem, 9vw, 8rem); }
+.h1 { font-size: clamp(2.4rem, 6.5vw, 5.8rem); }
 .h2 { font-size: clamp(2.2rem, 6vw, 5rem); }
 .h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
 
@@ -154,25 +154,13 @@ nav {
 nav.scrolled { border-bottom-color: var(--border); }
 
 .logo {
-  font-family: var(--font-display);
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 10px;
 }
-.logo-mark {
-  width: 32px;
-  height: 32px;
-  background: var(--accent);
-  color: #000;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 18px;
-  border-radius: 6px;
-  transform: rotate(-4deg);
+.logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .nav-links {
@@ -368,7 +356,7 @@ nav.scrolled { border-bottom-color: var(--border); }
 .hero-badge {
   position: absolute;
   bottom: 24px;
-  left: 24px;
+  right: 24px;
   background: rgba(10,10,10,0.85);
   padding: 16px 20px;
   border-radius: 14px;
@@ -396,8 +384,8 @@ nav.scrolled { border-bottom-color: var(--border); }
 
 .hero-cref {
   position: absolute;
-  top: 24px;
-  right: 24px;
+  bottom: 24px;
+  left: 24px;
   background: var(--accent);
   color: #000;
   padding: 10px 18px;
@@ -407,8 +395,9 @@ nav.scrolled { border-bottom-color: var(--border); }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  transform: rotate(3deg);
+  transform: rotate(-2deg);
   z-index: 3;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 900px) {
@@ -439,17 +428,18 @@ nav.scrolled { border-bottom-color: var(--border); }
   /* H1 sobrepondo a foto no mobile */
   .hero-title-overlay {
     position: absolute;
-    top: 24px;
+    top: 28px;
     left: 20px;
     right: 20px;
     z-index: 5;
     margin: 0;
-    font-size: clamp(2.6rem, 13vw, 4.5rem);
-    line-height: 0.92;
-    color: var(--accent);
-    text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    font-size: clamp(1.9rem, 8.5vw, 3rem);
+    line-height: 0.95;
+    color: #ffffff;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.75);
     pointer-events: none;
   }
+  .hero-title-overlay .accent { color: var(--accent); }
   .hero-title-overlay .accent::after { display: none; }
 
   /* Hero-content abaixo da foto (sub + ctas + tags) */
@@ -463,23 +453,28 @@ nav.scrolled { border-bottom-color: var(--border); }
   }
   .hero-ctas {
     margin-bottom: 24px;
+    flex-wrap: nowrap;
   }
   .hero-ctas .btn {
     flex: 1;
     min-width: 0;
     justify-content: center;
-    padding: 16px 20px;
-    font-size: 13px;
+    padding: 14px 16px;
+    font-size: 12px;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
   }
 
-  /* CREF reposicionado como na referência (canto superior direito, sobre a foto) */
+  /* CREF no canto inferior esquerdo (sobre a foto) */
   .hero-cref {
-    top: 24px;
-    right: 20px;
+    top: auto;
+    bottom: 20px;
+    left: 20px;
+    right: auto;
     padding: 10px 16px;
     font-size: 11px;
     z-index: 6;
-    transform: rotate(0);
+    transform: rotate(-2deg);
   }
 
   /* Badge "aceitando alunos" escondido no mobile pra não poluir */
@@ -531,6 +526,30 @@ nav.scrolled { border-bottom-color: var(--border); }
   to { transform: translateX(-50%); }
 }
 
+/* ================ FOTO GRUPO ================ */
+.foto-grupo {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  max-height: 560px;
+}
+.foto-grupo img {
+  width: 100%;
+  height: 100%;
+  max-height: 560px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.foto-grupo::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
 /* ================ SOBRE ================ */
 .sobre {
   padding: 120px 0;
@@ -538,9 +557,10 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 .sobre-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 80px;
+  grid-template-columns: 1fr;
+  gap: 0;
   align-items: center;
+  max-width: 720px;
 }
 .sobre-img {
   aspect-ratio: 4/5;
@@ -586,7 +606,6 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 
 @media (max-width: 900px) {
-  .sobre-grid { grid-template-columns: 1fr; gap: 48px; }
   .sobre-stats { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 }
 
@@ -1172,8 +1191,7 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="logo">
-    <span class="logo-mark">R</span>
-    <span>Rafael Fernando</span>
+    <img src="images/logo.svg" alt="Rafael Fernando Personal Trainer" class="logo-img" />
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#sobre">Sobre</a></li>
@@ -1192,7 +1210,7 @@ footer {
   <div class="hero-visual">
     <div class="hero-img">
       <img src="images/rafael-hero.jpg" alt="Rafael Fernando — Personal Trainer" class="hero-photo" />
-      <h1 class="h1 hero-title-overlay">Mais forte.<br>Mais saudável.<br><span class="accent">Você.</span></h1>
+      <h1 class="h1 hero-title-overlay">Treinamento<br>para Hipertrofia,<br>Emagrecimento<br>e <span class="accent">Performance</span></h1>
       <div class="hero-cref">CREF 020027-G/PE</div>
       <div class="hero-badge">
         <div class="hero-badge-dot"></div>
@@ -1205,7 +1223,7 @@ footer {
   </div>
 
   <div class="hero-content">
-    <h1 class="h1 hero-title-desktop">Mais forte.<br>Mais saudável.<br><span class="accent">Você.</span></h1>
+    <h1 class="h1 hero-title-desktop">Treinamento<br>para Hipertrofia,<br>Emagrecimento<br>e <span class="accent">Performance</span></h1>
 
     <p class="hero-sub">Treinos sob medida para você atingir hipertrofia, força e condicionamento. Método personalizado, acompanhamento próximo e resultados que duram — presencial ou online.</p>
 
@@ -1234,19 +1252,15 @@ footer {
   </div>
 </div>
 
+<!-- FOTO GRUPO -->
+<div class="foto-grupo">
+  <img src="images/foto-grupo.png" alt="Rafael Fernando com alunos — Personal Trainer Recife" loading="lazy" />
+</div>
+
 <!-- SOBRE -->
 <section class="sobre" id="sobre">
   <div class="container">
     <div class="sobre-grid">
-      <div class="sobre-img reveal">
-        <div class="img-placeholder">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="8" r="4"/>
-            <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
-          </svg>
-          <div>Foto do Rafael<br><br>→ retrato profissional,<br>fundo escuro, pose confiante</div>
-        </div>
-      </div>
       <div class="reveal">
         <span class="eyebrow">Sobre o Rafael</span>
         <h2 class="h2">Treino com <span>propósito</span>, resultado de <span>verdade</span>.</h2>
@@ -1428,12 +1442,13 @@ footer {
 
     <div class="precos-grid">
       <!-- Avaliação -->
+      <!-- Avaliação Física -->
       <div class="plano reveal">
         <div class="plano-name">Avaliação</div>
         <div class="plano-title">Avaliação Física</div>
         <div class="plano-price">
           <span class="from">R$</span>
-          <span class="value">80</span>
+          <span class="value">100</span>
           <span class="period">/ sessão</span>
         </div>
         <p class="plano-desc">Diagnóstico completo para entender seu ponto de partida e montar a melhor estratégia.</p>
@@ -1446,32 +1461,34 @@ footer {
         <a href="https://wa.me/5581985687735?text=Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20f%C3%ADsica." class="btn plano-btn" target="_blank" rel="noopener"><span>Agendar</span></a>
       </div>
 
-      <!-- Personal FEATURED -->
+      <!-- Personal Presencial FEATURED -->
       <div class="plano featured reveal">
-        <div class="plano-name">Presencial</div>
+        <div class="plano-name">Presencial · 3x a 5x/semana</div>
         <div class="plano-title">Personal Trainer</div>
         <div class="plano-price">
           <span class="from">A partir de R$</span>
-          <span class="value accent">200</span>
-          <span class="period">/ mês</span>
+          <span class="value accent">50</span>
+          <span class="period">/ hr/aula</span>
         </div>
-        <p class="plano-desc">Acompanhamento presencial completo, com montagem, execução e ajustes em tempo real.</p>
+        <p class="plano-desc">Acompanhamento presencial completo com correção em tempo real. Quanto maior o pacote, maior o desconto por hora.</p>
         <ul class="plano-list">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Sessões presenciais individuais</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Mensal — <strong>R$ 60,00/hr</strong></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Trimestral — <strong>R$ 55,00/hr</strong></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Semestral — <strong>R$ 50,00/hr</strong></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Mínimo 3x por semana</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Programa 100% personalizado</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Ajuste contínuo de cargas</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Suporte fora da sessão</li>
         </ul>
         <a href="https://wa.me/5581985687735?text=Quero%20contratar%20o%20Personal%20Presencial." class="btn plano-btn" target="_blank" rel="noopener"><span>Quero começar</span></a>
       </div>
 
-      <!-- Online -->
+      <!-- Consultoria Online -->
       <div class="plano reveal">
         <div class="plano-name">Online</div>
         <div class="plano-title">Consultoria</div>
         <div class="plano-price">
-          <span class="from">A partir de R$</span>
-          <span class="value">120</span>
+          <span class="from">R$</span>
+          <span class="value">150</span>
           <span class="period">/ mês</span>
         </div>
         <p class="plano-desc">Treine em qualquer lugar com programa personalizado, suporte direto e ajustes constantes.</p>
@@ -1674,8 +1691,7 @@ footer {
     <div class="footer-grid">
       <div class="footer-col footer-intro">
         <a href="#" class="logo">
-          <span class="logo-mark">R</span>
-          <span>Rafael Fernando</span>
+          <img src="images/logo.svg" alt="Rafael Fernando Personal Trainer" class="logo-img" />
         </a>
         <p>Personal Trainer dedicado a transformar objetivos em resultados reais através de treino personalizado e acompanhamento próximo.</p>
         <div class="footer-social">
